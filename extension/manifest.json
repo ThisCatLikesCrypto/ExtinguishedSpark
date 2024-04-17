@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "Extinguished Spark",
+    "version": "0.0.1",
+    "permissions": ["tabs", "activeTab", "storage"],
+    "host_permissions": [
+      "https://wilburwilliams.uk/*",
+      "https://wilbur.is-a.dev/*",
+      "https://*.sparxmaths.uk/*"
+    ],
+    "commands": {
+      "capture_image": {
+        "suggested_key": {
+          "default": "Ctrl+Shift+S",
+          "mac": "Command+Shift+S"
+        },
+        "description": "Capture and save image"
+      }
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon16.png"
+      }
+    },
+    "icons": {
+      "16": "icon16.png"
+    }
+  }
+  
