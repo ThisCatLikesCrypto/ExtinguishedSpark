@@ -8,7 +8,7 @@ import threading
 # Tkinter initialization
 tehWindow = tk.Tk()
 tehWindow.geometry('400x200')
-tehWindow.title("FUCK SPARX GG (this cannot be patched)")
+tehWindow.title("lol sparx (this cannot be patched)")
 tehWindow.attributes('-topmost', True)
 
 # Current working directory
