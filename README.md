@@ -10,7 +10,7 @@ Either clone this repo or download the files. Go to your chromium-based browser.
 It automatically is given permissions on sparxmaths.uk (as well as my websites for testing) and will take screenshots with Ctrl+Shift+S (Command+Shift+S for mac). I tried to get it to work with enter but it just wasn't having it.
 
 # Python instructions
-Requires `pynput` and `pyautogui`
+Requires `pynput` and `pyautogui`.  
 Either clone this repo or download the files. Move them to their own folder (along with 'numero'!) and whenever you use sparx simply run main.py. It will take screenshots when you press enter, and explorer.py is a viewer for said screenshots.
 
 # Problems?
