@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 
 images = []
 
-#Screenshot Browser
+# Screenshot Browser
 class ImageBrowser(tk.Frame):
     def __init__(self, master, images):
         super().__init__(master)
@@ -41,11 +41,13 @@ class ImageBrowser(tk.Frame):
         for i, image_label in enumerate(self.image_labels):
             index = self.current_index + i
             if index < len(self.images):
-                image = Image.open(self.images[index])
-                image.thumbnail((500, 500))  # Resize while preserving aspect ratio
-                photo = ImageTk.PhotoImage(image)
-                image_label.configure(image=photo)
-                image_label.image = photo  # Keep a reference to prevent garbage collection
+                image_path = self.images[index]
+                if image_path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+                    image = Image.open(image_path)
+                    image.thumbnail((500, 500))  # Resize while preserving aspect ratio
+                    photo = ImageTk.PhotoImage(image)
+                    image_label.configure(image=photo)
+                    image_label.image = photo  # Keep a reference to prevent garbage collection
 
     def show_next_images(self):
         if self.current_index + 3 < len(self.images):
@@ -58,15 +60,13 @@ class ImageBrowser(tk.Frame):
             self.show_images()
 
 
-#View Screenshots
+# View Screenshots
 def newView():
     browser = tk.Tk()
     browser.protocol("WM_DELETE_WINDOW", lambda: browser.destroy())
     files = os.listdir(os.getcwd())
     for file in files:
-        if file=="main.py" or file=="main.exe" or file=="explorer.exe" or file=="explorer.py" or file=="numero":
-            pass
-        else:
+        if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
             images.append(file)
     print(images)
     image_browser = ImageBrowser(browser, images)
