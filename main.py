@@ -1,58 +1,57 @@
-#Tkinter-powered program, to take pictures of your screen, write them, and let you name them. Also bookwork sparx check killer.
 import pyautogui
 import tkinter as tk
 import os
+import sys
 from pynput.keyboard import Key, Listener
 import threading
 
+# Tkinter initialization
+tehWindow = tk.Tk()
+tehWindow.geometry('400x200')
+tehWindow.title("FUCK SPARX GG (this cannot be patched)")
+tehWindow.attributes('-topmost', True)
 
-# Tkinter init
-frame = tk.Tk()
-frame.geometry('400x200')
-frame.title("FUCK SPARX GG")
-frame.attributes('-topmost', True)
+# Current working directory
+current_directory = os.getcwd()
 
-# Vars init
-cwd = os.getcwd()
-
-#Purge all images
-def purgeShots():
-    directory = os.getcwd()
-    files = os.listdir(directory)
+# Purge all non-image files from the directory
+def purge_non_image_files():
+    files = os.listdir(current_directory)
     for file in files:
-        if os.path.isfile(os.path.join(directory, file)) and file!="main.exe" and file!="main.py" and file!="numero" and file=="explorer.exe" and file=="explorer.py":
-            os.remove(file)
-
+        if os.path.isfile(os.path.join(current_directory, file)):
+            if file.endswith(".png"):
+                os.remove(os.path.join(current_directory, file))
 
 # Save Screenshot
-def saveShot():
-    f = open("numero", "r")
-    thing = f.read()
-    f.close()
+def save_screenshot():
+    with open("numero", "r") as f:
+        count = int(f.read())
     image = pyautogui.screenshot()
-    image.save(thing + ".png", "PNG")
-    fsdajifads = str(int(thing)+1)
-    f = open("numero", "w")
-    f.write(fsdajifads)
-    f.close()
+    image.save(f"{count}.png", "PNG")
+    count += 1
+    with open("numero", "w") as f:
+        f.write(str(count))
 
-quInputLabel = tk.Label(frame, text = "Press enter to take a screenshot.")
-quInputLabel.pack()
-thePurgeBtn = tk.Button(frame, text="Purge All Screenshots", command=purgeShots)
-thePurgeBtn.pack()
+# GUI elements
+instruction_label = tk.Label(tehWindow, text="Press Enter to take a screenshot.")
+instruction_label.pack()
+purge_button = tk.Button(tehWindow, text="Purge All Screenshots", command=purge_non_image_files)
+purge_button.pack()
+exit_button = tk.Button(tehWindow, text="Exit", command=sys.exit)
+exit_button.pack()
 
-def listenCheck(why):
-    if why == Key.enter:
-        saveShot()
+# Keyboard listener function
+def check_key_press(key):
+    if key == Key.enter:
+        save_screenshot()
 
-def listeningThread():
-    with Listener(on_press = listenCheck) as listener:   
+# Listening thread function
+def start_listening():
+    with Listener(on_press=check_key_press) as listener:   
         listener.join()
 
-# Create a new thread
-my_thread = threading.Thread(target=listeningThread)
+# Create and start the listening thread
+listening_thread = threading.Thread(target=start_listening)
+listening_thread.start()
 
-# Start the thread
-my_thread.start()
-
-frame.mainloop()
+tehWindow.mainloop()
