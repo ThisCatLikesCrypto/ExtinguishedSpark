@@ -2,7 +2,7 @@
 A program designed to get around Sparx Maths™ bookwork checks by taking a screenshot every time you press a certain key/key combo (thus taking a picture of your answer)
 
 # Why are there two?
-I made the python one first and then got ChatGPT to make an extension ver (it took a lot of wrestling an I made quite a lot of it myself in the end but oh well)  
+I made the python one first and then got ChatGPT to make an extension ver (it took a lot of wrestling and I made quite a lot of it myself in the end but oh well)  
 Choose which one you want! The extension version is likely to be the most convenient and have updates but if you can't enable developer mode on your browser for whatever reason use the python one.
 
 # Extension instructions
