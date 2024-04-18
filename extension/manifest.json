@@ -5,6 +5,7 @@
     "permissions": ["tabs", "activeTab", "storage"],
     "host_permissions": [
       "https://wilburwilliams.uk/*",
+      "https://dev.wilburwilliams.uk/extest",
       "https://wilbur.is-a.dev/*",
       "https://*.sparxmaths.uk/*"
     ],
@@ -29,6 +30,28 @@
     },
     "icons": {
       "16": "icon16.png"
-    }
+    },
+    "content_scripts": [
+      {
+          "js": [
+              "index.js"
+          ],
+          "matches": [
+              "<all_urls>"
+          ],
+          "run_at": "document_start"
+      }
+  ],
+  "web_accessible_resources": [
+      {
+          "resources": [
+              "main.js"
+          ],
+          "matches": [
+              "<all_urls>"
+          ]
+      }
+  ]
+
   }
   
