@@ -1,15 +1,23 @@
 console.log("background script");
 
-//I barely have a clue how this works this is all chatgpt
-chrome.commands.onCommand.addListener(async function(command) {
+// Define the function to handle the command
+async function handleCommand(command="capture_image") {
+    console.log(command);
     if (command === 'capture_image') {
+        console.log("triggered");
         try {
+            // Get the active tab
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            
+            // Check if the tab object is undefined
+            if (!tab) {
+                console.error("No active tab found.");
+                return;
+            }
+
             // Retrieve the current image number from local storage
             chrome.storage.local.get("imageNumber", async function(data) {
                 let imageNumber = data.imageNumber || 1; // Default to 1 if imageNumber is not set
-
-                // Get the active tab
-                const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
                 // Capture visible tab as an image
                 const captureOptions = { format: "png" };
@@ -34,4 +42,7 @@ chrome.commands.onCommand.addListener(async function(command) {
             console.error("Error capturing or saving image:", error);
         }
     }
-});
+}
+
+// Add listener for commands and call the named function
+chrome.commands.onCommand.addListener(handleCommand);
