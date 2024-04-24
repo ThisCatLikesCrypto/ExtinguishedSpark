@@ -23,17 +23,25 @@ async function getAnswers() {
     Array.prototype.forEach.call(answersFromInput, function(answer) {
         answers.push(answer.value);
     });
-    //!Need to be able to detect whether it's a select answer or input answer and handle accordingly
-    console.log('Extinguished Spark -> Got answers', answers);
+    if (answers.length == 0){
+        answe = await getSelectAnswers();
+        answers.push(answe);
+    } else {
+        console.log('Extinguished Spark -> Got answers', answers);
+    }
     answersMap[bwkCode] = answers;
     console.log('Extinguished Spark -> Updated answersMap to', answersMap);
-    
 }
 
 //!Being worked on
 async function getSelectAnswers() {
-    selected = document.getElementsByClassName('_OptionSelected_1q5vh_576')[0].innerHTML;
-    console.log(selected);
+    try {
+        selected = document.getElementsByClassName('_OptionSelected_1q5vh_576')[0].children[0].children[0].innerHTML;
+    } catch {
+        console.log("Multiple selections not implemented yet."); //! FIX THIS!
+    }
+    console.log('Extinguished Spark -> Got select answer', selected);
+    return selected;
 }
 
 document.addEventListener('DOMContentLoaded', async function(){
@@ -51,12 +59,11 @@ document.addEventListener('click', async function(event) {
         getBwkCode();
         if (element.innerHTML === 'Continue' || element.innerHTML === 'Summary') {
             getAnswers();
-            getSelectAnswers();
         } 
     }
 });
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener('keydown', function(event) {
     if (event.key === "Enter") {
         if (document.URL.toLowerCase().includes("sparx")){
             var element = event.target;
