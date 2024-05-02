@@ -25,6 +25,7 @@ async function getAnswers() {
     });
     if (answers.length == 0){
         answe = await getSelectAnswers();
+        test = await getDropdownAnswers();
         answers.push(answe);
     } else {
         console.log('Extinguished Spark -> Got answers', answers);
@@ -39,6 +40,21 @@ async function getSelectAnswers() {
         selected = document.getElementsByClassName('_OptionSelected_1q5vh_576')[0].children[0].children[0].innerHTML;
     } catch {
         console.log("Multiple selections not implemented yet."); //! FIX THIS!
+        console.log(document.getElementsByClassName('_OptionSelected_1q5vh_576'))
+    }
+    console.log('Extinguished Spark -> Got select answer', selected);
+    return selected;
+}
+
+//!Doesn't work but i'm out of motivation for now cuz js is pain so imma go back to something that I actually know how to code
+//Like we-know-your-ip-address (that thing is a mess)
+async function getDropdownAnswers() {
+    try {
+        selected = document.getElementsByClassName('_AnswerTextElement_ygl3l_77')
+        console.log(selected[0])
+        console.log(selected[1])
+    } catch {
+        console.log("Extinguished Spark -> Unable to get dropdown answer")
     }
     console.log('Extinguished Spark -> Got select answer', selected);
     return selected;
