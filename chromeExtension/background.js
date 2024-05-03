@@ -13,7 +13,7 @@ async function takeScreen(){
 
         // Retrieve the current image number from local storage
         chrome.storage.local.get("imageNumber", async function(data) {
-            let imageNumber = data.imageNumber || 1; // Default to 1 if imageNumber is not set
+            let imageNumber = "tempimg";
 
             // Capture visible tab as an image
             const captureOptions = { format: "png" };
@@ -29,8 +29,6 @@ async function takeScreen(){
                     console.error("Error saving image:", chrome.runtime.lastError);
                 } else {
                     console.log("Image saved successfully");
-                    // Increment image number and store it in local storage
-                    chrome.storage.local.set({ "imageNumber": imageNumber + 1 });
                 }
             });
         });
@@ -56,3 +54,14 @@ async function handleCommand(command="capture_image") {
 
 // Add listener for commands and call the named function
 chrome.commands.onCommand.addListener(handleCommand);
+
+// Listen for messages from content scripts or popup
+chrome.runtime.onMessage.addListener(async function(message, sender, sendResponse) {
+    console.log("mesag");
+    await takeScreen();
+    chrome.storage.local.get("temping", async function(data){
+        console.log(data.imageData);
+        chrome.runtime.sendMessage({ message: data.imageData});
+    })
+
+});

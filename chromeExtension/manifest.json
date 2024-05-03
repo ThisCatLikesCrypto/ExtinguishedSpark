@@ -34,7 +34,7 @@
     "content_scripts": [
       {
           "js": [
-              "index.js"
+              "extinguishedspark.js"
           ],
           "matches": [
               "<all_urls>"
@@ -45,7 +45,7 @@
   "web_accessible_resources": [
       {
           "resources": [
-              "main.js"
+              "extinguishedspark.js"
           ],
           "matches": [
               "<all_urls>"
